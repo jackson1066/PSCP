@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>PSCP</title>
+  <meta name="theme-color" content="#1f6f64" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="PSCP" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">JOlexy</p>
+      <h1>PSCP</h1>
+      <p class="subtitle">Personal Spending Co-Pilot</p>
+    </div>
+    <button id="resetBtn" class="ghost">Reset</button>
+  </header>
+
+  <nav class="tabs" aria-label="PSCP sections">
+    <button class="tab active" data-screen="dashboard">Dashboard</button>
+    <button class="tab" data-screen="quickadd">Quick Add</button>
+    <button class="tab" data-screen="budget">Budget</button>
+    <button class="tab" data-screen="changes">Changes</button>
+    <button class="tab" data-screen="help">Help</button>
+  </nav>
+
+  <main>
+    <section id="dashboard" class="screen active">
+      <h2>Recovery & Decision Dashboard</h2>
+      <div class="card-grid">
+        <article class="card"><span>Functional Recovery</span><strong id="functionalSpend">$0.00</strong></article>
+        <article class="card"><span>Strategic Purchases</span><strong id="strategicCount">0</strong></article>
+        <article class="card"><span>Outcome Reviews Needed</span><strong id="outcomeNeeded">0</strong></article>
+        <article class="card"><span>Total Remaining</span><strong id="totalRemaining">$0.00</strong></article>
+      </div>
+      <div class="panel">
+        <h3>Scenario Summary</h3>
+        <div id="scenarioSummary"></div>
+      </div>
+      <div class="panel">
+        <h3>Recent Purchases</h3>
+        <div id="recentPurchases" class="list"></div>
+      </div>
+    </section>
+
+    <section id="quickadd" class="screen">
+      <h2>Quick Add Purchase</h2>
+      <form id="purchaseForm" class="panel form">
+        <label>Amount <input id="amount" type="number" step="0.01" min="0" required placeholder="27.54" /></label>
+        <label>Category <select id="category"></select></label>
+        <label>Scenario
+          <select id="scenario">
+            <option value="comfortable">Comfortable</option>
+            <option value="functional">Functional</option>
+            <option value="both">Both</option>
+          </select>
+        </label>
+        <label>Review Label
+          <select id="reviewLabel">
+            <option value="green">🟢 Green - sensible buy</option>
+            <option value="yellow">🟡 Yellow - wait/reconsider</option>
+            <option value="red">🔴 Red - skip/defer</option>
+            <option value="strategic">🔵 Strategic - improves function</option>
+          </select>
+        </label>
+        <label>Purchase Date <input id="purchaseDate" type="date" required /></label>
+        <label>Note <textarea id="note" rows="3" placeholder="What was purchased? Why?"></textarea></label>
+        <button type="submit" class="primary">Add Purchase</button>
+      </form>
+    </section>
+
+    <section id="budget" class="screen">
+      <h2>Budget Table</h2>
+      <div class="toggle">
+        <button class="scenarioToggle active" data-mode="comfortable">Comfortable</button>
+        <button class="scenarioToggle" data-mode="functional">Functional</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Category</th><th>Budget</th><th>Actual</th><th>Remaining</th></tr></thead>
+          <tbody id="budgetRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="changes" class="screen">
+      <h2>Change Log</h2>
+      <div id="changeLog" class="list"></div>
+    </section>
+
+    <section id="help" class="screen">
+      <h2>Help / Recommendation Mode</h2>
+      <div class="panel form">
+        <label>Purchase idea <input id="idea" placeholder="$89 keyboard" /></label>
+        <label>Category <select id="helpCategory"></select></label>
+        <label>Expected impact
+          <select id="impact">
+            <option value="recovery">Recovery / function</option>
+            <option value="health">Health / comfort</option>
+            <option value="productivity">Productivity</option>
+            <option value="convenience">Convenience</option>
+            <option value="entertainment">Entertainment</option>
+          </select>
+        </label>
+        <button id="recommendBtn" class="primary">Get Recommendation</button>
+      </div>
+      <div id="recommendation" class="panel recommendation"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
